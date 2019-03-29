@@ -1,7 +1,7 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/ajqportal/SDK/flutter
-FLUTTER_APPLICATION_PATH=/Users/ajqportal/Projects/Pegasus/FuegoSoft.Pegasus.Mobile/fuegosoft_mobile
-FLUTTER_TARGET=/Users/ajqportal/Projects/Pegasus/FuegoSoft.Pegasus.Mobile/fuegosoft_mobile/lib/main.dart
+FLUTTER_APPLICATION_PATH=/Users/ajqportal/Documents/GitHub/FuegoSoft.Pegasus.Mobile
+FLUTTER_TARGET=/Users/ajqportal/Documents/GitHub/FuegoSoft.Pegasus.Mobile/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_FRAMEWORK_DIR=/Users/ajqportal/SDK/flutter/bin/cache/artifacts/engine/ios
