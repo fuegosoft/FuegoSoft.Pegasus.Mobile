@@ -3,12 +3,12 @@
 //
 
 #import "GeneratedPluginRegistrant.h"
-#import <google_maps_flutter/GoogleMapsPlugin.h>
+#import <flutter_secure_storage/FlutterSecureStoragePlugin.h>
 
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [FLTGoogleMapsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleMapsPlugin"]];
+  [FlutterSecureStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSecureStoragePlugin"]];
 }
 
 @end
