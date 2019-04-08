@@ -101,13 +101,16 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
 
   Widget _buildContent() {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildLogo(),
-          _buildAppInfo(),
-          _buildButtons(),
-        ],
+      child: Padding(
+        padding: EdgeInsets.only(top: 40.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildLogo(),
+            _buildAppInfo(),
+            _buildButtons(),
+          ],
+        ),
       ),
     );
   }
@@ -155,6 +158,7 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
             child: Text(
               'Ayuda',
               style: TextStyle(
+                  fontFamily: 'OpenSans',
                   color: Colors.white.withOpacity(appNameOpacity.value),
                   fontWeight: FontWeight.bold,
                   fontSize: 40.0),
@@ -165,6 +169,7 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
             child: Text(
               'Find professionals near you',
               style: TextStyle(
+                  fontFamily: 'OpenSans',
                   color: Colors.white.withOpacity(sloganOpacity.value),
                   fontSize: 20.0,
                   fontWeight: FontWeight.w500),
@@ -184,7 +189,8 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
             child: Text(
               'This is your app info. please put a short detail on it.',
               style: TextStyle(
-                fontSize: 10.0,
+                fontFamily: 'OpenSans',
+                fontSize: 12.0,
                 color: Colors.white.withOpacity(appInfoOpacity.value),
                 height: 1.4,
               ),
@@ -216,6 +222,7 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
                   child: Text(
                     'Login',
                     style: TextStyle(
+                      fontFamily: '',
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

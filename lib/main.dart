@@ -10,6 +10,7 @@ class AyudaApp extends StatelessWidget {
       title: 'Ayuda',
       theme: new ThemeData(
         primarySwatch: Colors.green,
+        fontFamily: 'OpenSans',
       ),
       initialRoute: '/',
       routes: routes,
