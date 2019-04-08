@@ -11,7 +11,7 @@ class AyudaApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.green,
       ),
-      initialRoute: '/login',
+      initialRoute: '/',
       routes: routes,
     );
   }

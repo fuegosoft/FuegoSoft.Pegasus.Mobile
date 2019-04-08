@@ -74,7 +74,6 @@ class LoginAnimation extends StatefulWidget {
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     ),
             )
-          // use another logo for error within if statement.
           : StreamBuilder<Token>(
               stream: loginBloc.tokenStream,
               initialData: Token.initial(),
@@ -98,6 +97,7 @@ class LoginAnimation extends StatefulWidget {
                     ),
                   );
                 } else {
+                  // reanimate reverse
                   return Container(
                     decoration: BoxDecoration(
                         color: Colors.redAccent,

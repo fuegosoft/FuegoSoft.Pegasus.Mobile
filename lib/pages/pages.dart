@@ -1,3 +1,3 @@
-export 'login_page.dart';
-export 'splash_page.dart';
-export 'dashboard_page.dart';
+export 'login/login_page.dart';
+export 'splash/splash_page.dart';
+export 'dashboard/dashboard_page.dart';
