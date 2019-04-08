@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'url_request.dart';
 
 Future<http.Response> performLogin(String username, String password) async {
-  var body = {'username': username, 'password': password};
-  return await http.post(URLRequest.LOGIN, body: body);
+  var body = json.encode({'username': username, 'password': password});
+  var header = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json'
+  };
+  return await http.post(URLRequest.LOGIN, body: body, headers: header);
 }

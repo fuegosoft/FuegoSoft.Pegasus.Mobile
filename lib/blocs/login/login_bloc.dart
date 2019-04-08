@@ -6,7 +6,7 @@ import 'package:fuegosoft_mobile/repository/repository.dart';
 class LoginBloc implements BlocBase {
   Token _token;
   Login _login;
-  UserRepository _userRepository;
+  UserRepository _userRepository = new UserRepository();
   SecureStorage storage = SecureStorage();
 
   // Stream to handle the token
@@ -32,7 +32,7 @@ class LoginBloc implements BlocBase {
     if (login.username.length > 4 && login.password.length > 7) {
       var performAuth = await _userRepository.authenticate(
           username: login.username, password: login.password);
-      if (performAuth.token != '') {
+      if (performAuth.token.isNotEmpty) {
         storage.persistToken(performAuth.token);
         tokenSink.add(performAuth);
       }
