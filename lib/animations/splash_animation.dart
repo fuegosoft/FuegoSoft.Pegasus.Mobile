@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import 'package:fuegosoft_mobile/pages/pages.dart';
+
 class SplashDetailsEnterAnimation extends StatefulWidget {
   final AnimationController controller;
   final BuildContext context;
@@ -219,7 +221,8 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
                     ),
                   ),
                   onPressed: () {
-                    print('goto login');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
                   },
                   color: Colors.greenAccent,
                 ),
