@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fuegosoft_mobile/animations/login_animation.dart';
 import 'package:flutter/animation.dart';
+import 'package:fuegosoft_mobile/utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
-  final Widget child;
-
-  LoginPage({Key key, this.child}) : super(key: key);
+  LoginPage({
+    Key key,
+  }) : super(key: key);
 
   _LoginPageState createState() => _LoginPageState();
 }
@@ -32,6 +33,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _loginButtonController.dispose();
+
     super.dispose();
   }
 
@@ -46,7 +48,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         preferredSize: Size.fromHeight(50.0),
         child: AppBar(
           elevation: 0.0,
-          backgroundColor: Color(0xFF458534),
+          backgroundColor: getColor(ColorList.DarkGreen, 1.0),
         ),
       ),
       body: Form(
@@ -64,8 +66,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Color(0xFF458534),
-                          Color(0xFF7BB35A),
+                          getColor(ColorList.DarkGreen, 1.0),
+                          getColor(ColorList.LightGreen, 1.0),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -77,12 +79,26 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     child: Stack(
                       children: <Widget>[
                         Align(
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            'assets/images/log-ayuda-black.png',
-                            height: 85,
-                            width: 85,
-                            color: Colors.white,
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: getColor(ColorList.WhiteCream, 1.0),
+                                    width: 2.0)),
+                            child: Container(
+                              height: 85,
+                              width: 85,
+                              child: ClipOval(
+                                child: Image.asset(
+                                  'assets/images/log-ayuda-black.png',
+                                  color: getColor(ColorList.WhiteCream, 1.0),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         Align(
@@ -95,7 +111,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             child: Text(
                               'Login'.toUpperCase(),
                               style: TextStyle(
-                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                  color: getColor(ColorList.WhiteCream, 1.0),
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -128,6 +145,9 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           padding: EdgeInsets.only(
                               top: 4, left: 16, bottom: 4, right: 16),
                           child: TextFormField(
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                            ),
                             controller: _usernameTextController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -145,25 +165,33 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             keyboardType: TextInputType.emailAddress,
                           ),
                         ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
                         Container(
                           margin: EdgeInsets.only(top: 25),
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: !hasError
-                                      ? Colors.black12
-                                      : Colors.redAccent,
-                                  blurRadius: 5,
-                                )
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50))),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: !hasError
+                                    ? Colors.black12
+                                    : Colors.redAccent,
+                                blurRadius: 5,
+                              )
+                            ],
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50),
+                            ),
+                          ),
                           width: MediaQuery.of(context).size.width / 1.1,
                           height: 50,
                           padding: EdgeInsets.only(
                               top: 4, left: 16, bottom: 4, right: 16),
                           child: TextFormField(
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                            ),
                             controller: _passwordTextController,
                             obscureText: true,
                             decoration: InputDecoration(
@@ -201,9 +229,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                         hasError = true;
                                       }
                                     });
-                                    // when complete, if has error login
-                                    // popup snackbar error
-                                    // else popup to dashboard.
                                   },
                                   child: SignIn(),
                                 )
@@ -237,30 +262,23 @@ class SignIn extends StatelessWidget {
       height: 60,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
+        border:
+            Border.all(width: 1.0, color: getColor(ColorList.WhiteCream, 1.0)),
         borderRadius: BorderRadius.circular(30),
         gradient: LinearGradient(
           colors: [
-            Color(0xFF458534),
-            Color(0xFF7BB35A),
+            getColor(ColorList.DarkGreen, 1.0),
+            getColor(ColorList.LightGreen, 1.0),
           ],
         ),
       ),
       child: Text(
         'sign in'.toUpperCase(),
         style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-      ),
-    );
-  }
-}
-
-class ForgotPassword extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: FlatButton(
-        onPressed: () {},
-        child: Text('Forgot your password?'),
+            fontFamily: 'OpenSans',
+            color: getColor(ColorList.WhiteCream, 1.0),
+            fontWeight: FontWeight.bold,
+            fontSize: 18),
       ),
     );
   }
@@ -272,8 +290,17 @@ class SignUp extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: FlatButton(
-        child: Text("Forgot your password?"),
-        onPressed: () {},
+        child: Text(
+          "Forgot your password?",
+          style: TextStyle(
+            fontFamily: 'OpenSans',
+            color: getColor(ColorList.DarkBlue, 1.0),
+            fontSize: 18.0,
+          ),
+        ),
+        onPressed: () {
+          print('forgot password is pressed!');
+        },
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
       ),

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 abstract class BlocBase {
@@ -9,13 +7,10 @@ abstract class BlocBase {
 class BlocProvider<T extends BlocBase> extends StatefulWidget {
   final T bloc;
   final Widget child;
+
   static Type _typeOf<T>() => T;
 
-  BlocProvider({
-    Key key,
-    @required this.child,
-    this.bloc,
-  }) : super(key: key);
+  BlocProvider({Key key, @required this.child, this.bloc}) : super(key: key);
 
   @override
   _BlocProviderState<T> createState() => _BlocProviderState();

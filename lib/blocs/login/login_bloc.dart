@@ -6,7 +6,7 @@ import 'package:fuegosoft_mobile/repository/repository.dart';
 class LoginBloc implements BlocBase {
   Token _token;
   Login _login;
-  UserRepository _userRepository = new UserRepository();
+  UserRepository _userRepository = UserRepository();
   SecureStorage storage = SecureStorage();
 
   // Stream to handle the token

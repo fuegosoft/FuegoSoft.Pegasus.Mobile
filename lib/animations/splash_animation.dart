@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
 import 'package:fuegosoft_mobile/pages/pages.dart';
+import 'package:fuegosoft_mobile/pages/register/register_page.dart';
+import 'package:fuegosoft_mobile/utils/utils.dart';
 
 class SplashDetailsEnterAnimation extends StatefulWidget {
   final AnimationController controller;
@@ -129,7 +131,9 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
           width: 110,
           height: 110,
           decoration: BoxDecoration(
-              shape: BoxShape.circle, border: Border.all(color: Colors.white)),
+              shape: BoxShape.circle,
+              border: Border.all(
+                  color: getColor(ColorList.WhiteCream, 1.0), width: 2.0)),
           margin: const EdgeInsets.only(top: 32.0),
           padding: const EdgeInsets.all(3.0),
           child: Container(
@@ -138,7 +142,7 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
             child: ClipOval(
               child: Image.asset(
                 'assets/images/log-ayuda-black.png',
-                color: Colors.white,
+                color: getColor(ColorList.WhiteCream, 1.0),
               ),
             ),
           ),
@@ -159,10 +163,14 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
               'Ayuda',
               style: TextStyle(
                   fontFamily: 'OpenSans',
-                  color: Colors.white.withOpacity(appNameOpacity.value),
+                  color: getColor(ColorList.WhiteCream, 1.0)
+                      .withOpacity(appNameOpacity.value),
                   fontWeight: FontWeight.bold,
                   fontSize: 40.0),
             ),
+          ),
+          SizedBox(
+            height: 10.0,
           ),
           Align(
             alignment: Alignment.center,
@@ -170,19 +178,26 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
               'Find professionals near you',
               style: TextStyle(
                   fontFamily: 'OpenSans',
-                  color: Colors.white.withOpacity(sloganOpacity.value),
+                  color: getColor(ColorList.WhiteCream, 1.0)
+                      .withOpacity(sloganOpacity.value),
                   fontSize: 20.0,
                   fontWeight: FontWeight.w500),
             ),
           ),
+          SizedBox(
+            height: 10.0,
+          ),
           Align(
             alignment: Alignment.center,
             child: Container(
-              color: Colors.white.withOpacity(0.85),
+              color: getColor(ColorList.WhiteCream, 1.0).withOpacity(0.85),
               margin: const EdgeInsets.symmetric(vertical: 16.0),
               width: dividerWidth.value,
-              height: 1.0,
+              height: 2.0,
             ),
+          ),
+          SizedBox(
+            height: 15.0,
           ),
           Align(
             alignment: Alignment.center,
@@ -191,7 +206,8 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
               style: TextStyle(
                 fontFamily: 'OpenSans',
                 fontSize: 12.0,
-                color: Colors.white.withOpacity(appInfoOpacity.value),
+                color: getColor(ColorList.WhiteCream, 1.0)
+                    .withOpacity(appInfoOpacity.value),
                 height: 1.4,
               ),
             ),
@@ -218,36 +234,62 @@ class SplashDetailsEnterAnimation extends StatefulWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                RaisedButton(
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                      fontFamily: '',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: getColor(ColorList.WhiteCream, 1.0),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(60)),
+                    child: Text(
+                      'Login'.toUpperCase(),
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 18.0,
+                        color: getColor(ColorList.WhiteCream, 1.0),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    color: getColor(ColorList.DarkGreen, 1.0),
+                    elevation: 15.0,
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                    },
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  },
-                  color: Colors.greenAccent,
                 ),
-                FlatButton(
-                  child: Text(
-                    'Not yet a member? Sign up now!',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 15.0,
+                ),
+                Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                  child: FlatButton(
+                    child: Text(
+                      'Not yet a member? Sign up now!',
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 18.0,
+                        color: getColor(ColorList.WhiteCream, 1.0),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    color: Colors.transparent,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterPage()));
+                    },
                   ),
-                  onPressed: () {
-                    print('goto register');
-                  },
-                  color: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                )
+                ),
               ],
             ),
           ),

@@ -56,8 +56,8 @@ class LoginAnimation extends StatefulWidget {
                 borderRadius: BorderRadius.circular(30),
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF458534),
-                    Color(0xFF7BB35A),
+                    getColor(ColorList.DarkGreen, 1.0),
+                    getColor(ColorList.LightGreen, 1.0),
                   ],
                 ),
               ),
@@ -65,13 +65,14 @@ class LoginAnimation extends StatefulWidget {
                   ? Text(
                       'sign in'.toUpperCase(),
                       style: TextStyle(
-                          color: Colors.white,
+                          color: getColor(ColorList.WhiteCream, 1.0),
                           fontWeight: FontWeight.bold,
                           fontSize: 18),
                     )
                   : CircularProgressIndicator(
                       strokeWidth: 1.5,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          getColor(ColorList.WhiteCream, 1.0)),
                     ),
             )
           : StreamBuilder<Token>(
@@ -83,8 +84,8 @@ class LoginAnimation extends StatefulWidget {
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Color(0xFF458534),
-                            Color(0xFF7BB35A),
+                            getColor(ColorList.DarkGreen, 1.0),
+                            getColor(ColorList.LightGreen, 1.0),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(60)),
@@ -93,7 +94,7 @@ class LoginAnimation extends StatefulWidget {
                     child: Icon(
                       Icons.check,
                       size: bounceAnimation.value,
-                      color: Colors.white,
+                      color: getColor(ColorList.WhiteCream, 1.0),
                     ),
                   );
                 } else {
@@ -107,7 +108,7 @@ class LoginAnimation extends StatefulWidget {
                     child: Icon(
                       Icons.clear,
                       size: bounceAnimation.value,
-                      color: Colors.white,
+                      color: getColor(ColorList.WhiteCream, 1.0),
                     ),
                   );
                 }

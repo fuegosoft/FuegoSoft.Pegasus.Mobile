@@ -30,6 +30,7 @@ dependencies:
   #cloud_firestore:
   http: ^0.12.0+1
   built_value: ^6.3.2
+  date_format: ^1.0.6
   #rxdart:
   #device_info:
   #shared_preferences:
