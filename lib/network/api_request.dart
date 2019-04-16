@@ -30,6 +30,7 @@ Future<http.Response> performCreateUser(
     'contactNumber': contactNumber,
     'firstName': firstName,
     'middleName': middleName,
+    'lastName': lastName,
     'gender': gender,
     'birthDate': birthDate,
   });

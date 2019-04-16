@@ -8,9 +8,10 @@ class User {
   String lastName;
   String gender;
   String birthDate;
+  bool isCreated;
 
   User(
-      {this.username,
+      this.username,
       this.password,
       this.emailAddress,
       this.contactNumber,
@@ -18,7 +19,7 @@ class User {
       this.middleName,
       this.lastName,
       this.gender,
-      this.birthDate});
+      this.birthDate);
 
   User.init() {
     this.username = "";
@@ -31,6 +32,8 @@ class User {
     this.gender = "";
     this.birthDate = "";
   }
+
+  User.fromJson(Map json) : isCreated = json['isCreated'];
 
   User.fromJsonBody(Map json)
       : username = json['username'],

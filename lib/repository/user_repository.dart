@@ -34,6 +34,6 @@ class UserRepository {
         lastName,
         gender,
         birthDate.toString());
-    return jsonDecode(response.body) as bool;
+    return response.statusCode == 201;
   }
 }

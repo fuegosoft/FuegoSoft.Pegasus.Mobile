@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fuegosoft_mobile/blocs/register/register_bloc.dart';
+import 'package:fuegosoft_mobile/models/models.dart';
 import 'package:fuegosoft_mobile/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:date_format/date_format.dart';
@@ -174,7 +175,18 @@ class _RegisterPageState extends State<RegisterPage> {
                           )
                         : _paddingSpace(false),
                     // register button
-                    RegisterButton(),
+                    RegisterButton(
+                      context: context,
+                      username: usernameController.text,
+                      password: passwordController.text,
+                      emailAddress: emailController.text,
+                      contactNumber: contactController.text,
+                      firstName: firstNameController.text,
+                      middleName: middleNameController.text,
+                      lastName: lastNameController.text,
+                      gender: _radioResult,
+                      birthDate: _datePicked,
+                    ),
                     _paddingSpace(false),
                   ].where(notNull).toList(),
                 ),
@@ -600,12 +612,33 @@ class _RegisterPageState extends State<RegisterPage> {
 
 class RegisterButton extends StatelessWidget {
   final BuildContext context;
-  RegisterButton({Key key, this.context}) : super(key: key);
+  final String username;
+  final String password;
+  final String emailAddress;
+  final String contactNumber;
+  final String firstName;
+  final String middleName;
+  final String lastName;
+  final String gender;
+  final DateTime birthDate;
+
+  RegisterButton(
+      {Key key,
+      this.context,
+      this.username,
+      this.password,
+      this.emailAddress,
+      this.contactNumber,
+      this.firstName,
+      this.middleName,
+      this.lastName,
+      this.gender,
+      this.birthDate})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final UserBloc userBloc =
-        BlocProvider.of<UserBloc>(context); // having issue
+    final UserBloc userBloc = BlocProvider.of<UserBloc>(context);
 
     return Container(
       height: 50,
@@ -625,7 +658,25 @@ class RegisterButton extends StatelessWidget {
               ),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            var user = User(username, password, emailAddress, contactNumber,
+                firstName, middleName, lastName, gender, birthDate.toString());
+
+            userBloc.userSink.add(user);
+            StreamBuilder<bool>(
+              stream: userBloc.successStream,
+              initialData: false,
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                if (snapshot.data) {
+                  // implement loading while in creation process
+                  // use username and password to login
+                  // get token and save into common storage
+                  // navigate to dashboard
+                  User.init();
+                }
+              },
+            );
+          },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(60),
             side: BorderSide(
