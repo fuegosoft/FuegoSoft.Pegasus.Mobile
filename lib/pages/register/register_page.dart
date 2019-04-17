@@ -6,6 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:date_format/date_format.dart';
 import 'dart:io' show Platform;
 
+var _userRegisterFormKey = GlobalKey<FormState>();
+
+var usernameController = TextEditingController();
+var passwordController = TextEditingController();
+var emailController = TextEditingController();
+var contactController = TextEditingController();
+var firstNameController = TextEditingController();
+var middleNameController = TextEditingController();
+var lastNameController = TextEditingController();
+int _radioValue = 0;
+
 class RegisterPage extends StatefulWidget {
   RegisterPage({Key key}) : super(key: key);
 
@@ -16,6 +27,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool test = false;
   bool notNull(Object o) => o != null;
+  bool notNullGenderRadio(Object o) => o != null;
   bool usernameHasError = false;
   bool passwordHasError = false;
   bool emailAddressHasError = false;
@@ -25,17 +37,10 @@ class _RegisterPageState extends State<RegisterPage> {
   bool lastNameHasError = false;
   bool selectGenderHasError = false;
   bool selectBirthDateHasError = false;
-  int _radioValue = 0;
+  bool hasNotSelectedGender = false;
+  bool hasNotSelectedAge = false;
   String _radioResult = '';
   DateTime _datePicked = DateTime.now();
-
-  var usernameController = TextEditingController();
-  var passwordController = TextEditingController();
-  var emailController = TextEditingController();
-  var contactController = TextEditingController();
-  var firstNameController = TextEditingController();
-  var middleNameController = TextEditingController();
-  var lastNameController = TextEditingController();
 
   @override
   void dispose() {
@@ -61,138 +66,173 @@ class _RegisterPageState extends State<RegisterPage> {
             backgroundColor: getColor(ColorList.DarkGreen, 1.0),
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 6,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    getColor(ColorList.DarkGreen, 1.0),
-                    getColor(ColorList.LightGreen, 1.0),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+        body: Form(
+          autovalidate: true,
+          key: _userRegisterFormKey,
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 6,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      getColor(ColorList.DarkGreen, 1.0),
+                      getColor(ColorList.LightGreen, 1.0),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(90),
+                  ),
                 ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(90),
-                ),
-              ),
-              child: Stack(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 40.0, bottom: 15.0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: getColor(ColorList.WhiteCream, 1.0),
-                              width: 2.0)),
-                      margin: const EdgeInsets.only(top: 32.0),
-                      padding: const EdgeInsets.all(3.0),
+                child: Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 40.0, bottom: 15.0),
                       child: Container(
-                        height: 70,
-                        width: 70,
-                        child: ClipOval(
-                          child: Image.asset(
-                            'assets/images/log-ayuda-black.png',
-                            color: getColor(ColorList.WhiteCream, 1.0),
+                        alignment: Alignment.center,
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: getColor(ColorList.WhiteCream, 1.0),
+                                width: 2.0)),
+                        margin: const EdgeInsets.only(top: 32.0),
+                        padding: const EdgeInsets.all(3.0),
+                        child: Container(
+                          height: 70,
+                          width: 70,
+                          child: ClipOval(
+                            child: Image.asset(
+                              'assets/images/log-ayuda-black.png',
+                              color: getColor(ColorList.WhiteCream, 1.0),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: FractionalOffset.bottomRight,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        right: 32,
-                        bottom: 15.0,
-                      ),
-                      child: Text(
-                        'Register'.toUpperCase(),
-                        style: TextStyle(
-                            fontFamily: 'OpenSans',
-                            color: getColor(ColorList.WhiteCream, 1.0),
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
+                    Align(
+                      alignment: FractionalOffset.bottomRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          right: 32,
+                          bottom: 15.0,
+                        ),
+                        child: Text(
+                          'Register'.toUpperCase(),
+                          style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              color: getColor(ColorList.WhiteCream, 1.0),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.41,
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(top: 20.0),
-                physics: const ClampingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // username
-                    _usernameTextField(context),
-                    _paddingSpace(usernameHasError),
-                    // password
-                    _passwordTextField(context),
-                    _paddingSpace(passwordHasError),
-                    // email address
-                    _emailAddressTextField(context),
-                    _paddingSpace(emailAddressHasError),
-                    // Contact Number
-                    _contactNumberTextField(context),
-                    _paddingSpace(contactNumberHasError),
-                    // First name
-                    _firstNameTextField(context),
-                    _paddingSpace(firstNameHasError),
-                    // middle name
-                    _middleNameTextField(context),
-                    _paddingSpace(false),
-                    // last name
-                    _lastNameTextField(context),
-                    _paddingSpace(lastNameHasError),
-                    // gender
-                    _buildGenderRadioButton(context),
-                    _paddingSpace(selectGenderHasError),
-                    // birthdate
-                    _buildDateTimePicker(context),
-                    selectBirthDateHasError
-                        ? Padding(
-                            padding: EdgeInsets.only(top: 10, bottom: 10),
-                            child: Text(
-                              'You must be 18 years old and above',
-                              style: TextStyle(color: Colors.redAccent),
-                            ),
-                          )
-                        : _paddingSpace(false),
-                    // register button
-                    RegisterButton(
-                      context: context,
-                      username: usernameController.text,
-                      password: passwordController.text,
-                      emailAddress: emailController.text,
-                      contactNumber: contactController.text,
-                      firstName: firstNameController.text,
-                      middleName: middleNameController.text,
-                      lastName: lastNameController.text,
-                      gender: _radioResult,
-                      birthDate: _datePicked,
-                    ),
-                    _paddingSpace(false),
-                  ].where(notNull).toList(),
+                  ],
                 ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 1.41,
+                width: MediaQuery.of(context).size.width,
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(top: 20.0),
+                  physics: const ClampingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      // username
+                      _usernameTextField(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // password
+                      _passwordTextField(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // email address
+                      _emailAddressTextField(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // Contact Number
+                      _contactNumberTextField(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // First name
+                      _firstNameTextField(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // middle name
+                      _middleNameTextField(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // last name
+                      _lastNameTextField(context),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // gender
+                      _buildGenderRadioButton(context),
+                      hasNotSelectedGender
+                          ? Text(
+                              'Please select a gender',
+                              style: TextStyle(
+                                  color: Colors.redAccent, fontSize: 12.5),
+                            )
+                          : null,
+                      SizedBox(
+                        height: hasNotSelectedGender ? 15 : 0,
+                      ),
+                      // birthdate
+                      _buildDateTimePicker(context),
+                      SizedBox(
+                        height: selectBirthDateHasError ? 15 : 10,
+                      ),
+                      selectBirthDateHasError
+                          ? Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                hasNotSelectedAge
+                                    ? 'Please select your birthdate'
+                                    : 'You must be 18 years old and above',
+                                style: TextStyle(
+                                    color: Colors.redAccent, fontSize: 12.5),
+                              ),
+                            )
+                          : null,
+                      // register button
+                      RegisterButton(
+                        context: context,
+                        username: usernameController.text,
+                        password: passwordController.text,
+                        emailAddress: emailController.text,
+                        contactNumber: contactController.text,
+                        firstName: firstNameController.text,
+                        middleName: middleNameController.text,
+                        lastName: lastNameController.text,
+                        gender: _radioResult,
+                        birthDate: _datePicked,
+                        callBackGender: isGenderSelected,
+                        callBackAge: isAgedNotSelected,
+                      ),
+                      _paddingSpace(false),
+                    ].where(notNull).toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -295,14 +335,14 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Email Address (example@ex.com)',
+          hintText: 'Email Address (user@domain.com)',
           icon: Icon(
             Icons.email,
             color: Colors.grey,
           ),
         ),
         validator: (String value) {
-          if (isEmail(value)) {
+          if (isEmail(value) || value.isEmpty) {
             return "Invalid email address";
           }
         },
@@ -333,15 +373,17 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Contact Number (09123456789)',
+          hintText: 'Contact Number (09XXXXXXXXX)',
           icon: Icon(
             Icons.phone,
             color: Colors.grey,
           ),
         ),
         validator: (String value) {
-          if (isPHPhone(value)) {
+          if (isPHPhone(value) || value.isEmpty) {
             return "Invalid Philippines phone number";
+          } else if (value.length < 10) {
+            return "Phone number has 11 numbers";
           }
         },
         keyboardType: TextInputType.phone,
@@ -407,7 +449,7 @@ class _RegisterPageState extends State<RegisterPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 40, vertical: 12.5),
           border: InputBorder.none,
-          hintText: 'Middle Name',
+          hintText: 'Middle Name (Optional)',
         ),
         keyboardType: TextInputType.emailAddress,
       ),
@@ -511,6 +553,7 @@ class _RegisterPageState extends State<RegisterPage> {
           } else {
             setState(() {
               selectBirthDateHasError = true;
+              _datePicked = _dateTime;
             });
           }
         },
@@ -588,7 +631,27 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  // gender class selection
+  void isAgedNotSelected() {
+    setState(() {
+      if (_datePicked.year == DateTime.now().year) {
+        hasNotSelectedAge = true;
+        selectBirthDateHasError = true;
+      } else {
+        selectBirthDateHasError = false;
+        hasNotSelectedAge = false;
+      }
+    });
+  }
+
+  void isGenderSelected() {
+    setState(() {
+      if (_radioValue == 0)
+        hasNotSelectedGender = true;
+      else
+        hasNotSelectedGender = false;
+    });
+  }
+
   void _handleGenderRadioValueChange(int value) {
     setState(() {
       _radioValue = value;
@@ -603,8 +666,10 @@ class _RegisterPageState extends State<RegisterPage> {
             break;
         }
         selectGenderHasError = false;
+        hasNotSelectedGender = false;
       } else {
         selectGenderHasError = true;
+        hasNotSelectedGender = true;
       }
     });
   }
@@ -621,6 +686,8 @@ class RegisterButton extends StatelessWidget {
   final String lastName;
   final String gender;
   final DateTime birthDate;
+  final Function callBackGender;
+  final Function callBackAge;
 
   RegisterButton(
       {Key key,
@@ -633,7 +700,9 @@ class RegisterButton extends StatelessWidget {
       this.middleName,
       this.lastName,
       this.gender,
-      this.birthDate})
+      this.birthDate,
+      this.callBackGender,
+      this.callBackAge})
       : super(key: key);
 
   @override
@@ -659,23 +728,37 @@ class RegisterButton extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            var user = User(username, password, emailAddress, contactNumber,
-                firstName, middleName, lastName, gender, birthDate.toString());
+            callBackGender();
+            callBackAge();
+            if (_userRegisterFormKey.currentState.validate()) {
+              var user = User(
+                  username,
+                  password,
+                  emailAddress,
+                  contactNumber,
+                  firstName,
+                  middleName,
+                  lastName,
+                  gender,
+                  birthDate.toString());
 
-            userBloc.userSink.add(user);
-            StreamBuilder<bool>(
-              stream: userBloc.successStream,
-              initialData: false,
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                if (snapshot.data) {
-                  // implement loading while in creation process
-                  // use username and password to login
-                  // get token and save into common storage
-                  // navigate to dashboard
-                  User.init();
-                }
-              },
-            );
+              userBloc.userSink.add(user);
+              StreamBuilder<bool>(
+                stream: userBloc.successStream,
+                initialData: false,
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.data) {
+                    // implement loading while in creation process
+                    // use username and password to login
+                    // get token and save into common storage
+                    // navigate to dashboard
+                    User.init();
+                  } else {
+                    // return some data here
+                  }
+                },
+              );
+            }
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(60),

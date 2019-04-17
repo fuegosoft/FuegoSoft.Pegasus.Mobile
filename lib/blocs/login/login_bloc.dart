@@ -4,8 +4,7 @@ import 'package:fuegosoft_mobile/utils/utils.dart';
 import 'package:fuegosoft_mobile/repository/repository.dart';
 
 class LoginBloc implements BlocBase {
-  Token _token;
-  Login _login;
+  Login login;
   UserRepository _userRepository = UserRepository();
   SecureStorage storage = SecureStorage();
 
@@ -28,7 +27,7 @@ class LoginBloc implements BlocBase {
   }
 
   Future<void> _performLoginAndGetToken(Login login) async {
-    _login = login;
+    login = login;
     if (login.username.length > 4 && login.password.length > 7) {
       var performAuth = await _userRepository.authenticate(
           username: login.username, password: login.password);

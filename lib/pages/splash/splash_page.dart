@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fuegosoft_mobile/animations/splash_animation.dart';
-import 'package:fuegosoft_mobile/utils/utils.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
